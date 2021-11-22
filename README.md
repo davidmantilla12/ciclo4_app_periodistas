@@ -1,4 +1,4 @@
-# red_egresados
+# red_periodistas
 
 A new Flutter project.
 
