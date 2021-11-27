@@ -22,6 +22,14 @@ class _State extends State<SignUpScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Padding(
+            padding: EdgeInsets.all(1.0),
+            child: Image(
+                image: NetworkImage(
+                    'https://i1.wp.com/cpv.com.co/wp-content/uploads/2018/09/cropped-CPV.png?fit=612%2C234&ssl=1'),
+                height: 120,
+                alignment: Alignment.center),
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(8.0),

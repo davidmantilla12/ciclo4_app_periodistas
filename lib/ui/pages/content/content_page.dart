@@ -48,7 +48,7 @@ class _State extends State<ContentPage> {
     return Scaffold(
       appBar: CustomAppBar(
         picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-        tile: const Text("Red de periodismo Uninorte"),
+        tile: const Text("Query News"),
         context: context,
         onSignOff: () {
           Get.offNamed('/auth');
