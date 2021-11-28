@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:red_periodistas/ui/pages/content/location/location_screen.dart';
-import 'package:red_periodistas/ui/pages/content/public_offers/public_offers_screen.dart';
+import 'package:red_periodistas/ui/pages/content/publications/publication_screen.dart';
 import 'package:red_periodistas/ui/pages/content/states/states_screen.dart';
 import 'package:red_periodistas/ui/pages/content/chats/chats_screen.dart';
 import 'package:red_periodistas/ui/pages/content/users_offers/users_offers_screen.dart';
@@ -76,7 +76,7 @@ class _State extends State<ContentPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.public_outlined),
-            label: 'Noticias',
+            label: 'Publicaciones',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.place_outlined),
