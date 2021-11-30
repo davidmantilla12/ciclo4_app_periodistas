@@ -21,10 +21,8 @@ class _NewPostState extends State<NewPost> {
             fontWeight: FontWeight.bold,
           ),
         ),
-
         centerTitle: true,
       ),
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
         child: Column(
