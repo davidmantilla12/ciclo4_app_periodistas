@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/publication_controller.dart';
 
 class NewPost extends StatefulWidget {
   const NewPost({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
+  final publicationCtrl = Get.put(PublicationCtrl());
+
   @override
   Widget build(BuildContext context) {
     // TODO: get and handle data from new post view
@@ -29,6 +33,7 @@ class _NewPostState extends State<NewPost> {
           children: [
             // post title
             TextFormField(
+              controller: publicationCtrl.title,
               autofocus: true,
               maxLength: 100,
               keyboardType: TextInputType.multiline,
@@ -42,8 +47,9 @@ class _NewPostState extends State<NewPost> {
             ),
 
             const SizedBox(height: 20.0),
-            // post abstract
+            // post content
             TextFormField(
+              controller: publicationCtrl.content,
               autocorrect: true,
               maxLines: 7,
               maxLength: 500,
@@ -60,6 +66,7 @@ class _NewPostState extends State<NewPost> {
             // post category
             const SizedBox(height: 20.0),
             TextFormField(
+              controller: publicationCtrl.category,
               autofocus: true,
               maxLength: 50,
               keyboardType: TextInputType.multiline,
@@ -75,6 +82,7 @@ class _NewPostState extends State<NewPost> {
             // post sub-category
             const SizedBox(height: 20.0),
             TextFormField(
+              controller: publicationCtrl.subCategory,
               autofocus: true,
               maxLength: 50,
               keyboardType: TextInputType.multiline,
@@ -105,7 +113,9 @@ class _NewPostState extends State<NewPost> {
               ),
 
               // TODO: implement add category controller
-              onPressed: () {},
+              onPressed: () {
+                publicationCtrl.info();
+              },
             )
           ],
         ),
