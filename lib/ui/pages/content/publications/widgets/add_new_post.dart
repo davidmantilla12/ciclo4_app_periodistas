@@ -112,14 +112,57 @@ class _NewPostState extends State<NewPost> {
                 ),
               ),
 
-              // TODO: implement add category controller
               onPressed: () {
-                publicationCtrl.info();
+                if (publicationCtrl.isPostEmpty()) {
+                  print('there must be at least one field empty!');
+                  showAlertEmptyFields(context);
+                } else {
+                  publicationCtrl.info();
+                  publicationCtrl.clearFields();
+                  Navigator.pop(context);
+                  confirmNewPost();
+                }
               },
             )
           ],
         ),
       ),
+    );
+  }
+
+  confirmNewPost() {
+    Get.showSnackbar(const GetSnackBar(
+      message: "Nuevo post agregado",
+      duration: Duration(seconds: 3),
+    ));
+  }
+
+  Future<void> showAlertEmptyFields(context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Campos incompletos'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Los campos no estan debidamente completados.'),
+                Text(
+                    'Por favor asegurece de llenar toda la información e intente nuevamente.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
