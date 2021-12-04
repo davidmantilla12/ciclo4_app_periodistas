@@ -39,9 +39,9 @@ class OfferCard extends StatelessWidget {
         onPressed: () {
           Clipboard.setData(ClipboardData(text: enlace));
           Get.showSnackbar(
-            GetBar(
+            const GetSnackBar(
               message: "Se ha copiado el enlace de la noticia al portapapeles.",
-              duration: const Duration(seconds: 2),
+              duration: Duration(seconds: 2),
             ),
           );
         },

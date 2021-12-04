@@ -143,7 +143,14 @@ class _NewPostState extends State<NewPost> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Campos incompletos'),
+          elevation: 3.0,
+          title: Row(
+            children: const [
+              Icon(Icons.announcement_rounded),
+              Text('Campos incompletos'),
+            ],
+          ),
+
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
@@ -153,6 +160,7 @@ class _NewPostState extends State<NewPost> {
               ],
             ),
           ),
+
           actions: <Widget>[
             TextButton(
               child: const Text('Aceptar'),
