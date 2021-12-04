@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/chats_controller.dart';
 import 'package:red_periodistas/ui/pages/content/location/location_screen.dart';
 import 'package:red_periodistas/ui/pages/content/publications/publication_screen.dart';
 import 'package:red_periodistas/ui/pages/content/states/states_screen.dart';
 import 'package:red_periodistas/ui/pages/content/chats/chats_screen.dart';
 import 'package:red_periodistas/ui/pages/content/users_offers/users_offers_screen.dart';
 import 'package:red_periodistas/ui/widgets/appbar.dart';
+import 'package:get/get.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({Key? key}) : super(key: key);
@@ -45,6 +47,7 @@ class _State extends State<ContentPage> {
   // Sólo definimos una AppBar, y un andamio.
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: CustomAppBar(
         picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
@@ -84,7 +87,7 @@ class _State extends State<ContentPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble_outline),
-            label: 'Chats',
+            label: "Chat",
           ),
         ],
         currentIndex: _selectedIndex,
