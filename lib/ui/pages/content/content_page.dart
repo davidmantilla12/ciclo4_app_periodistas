@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:red_periodistas/ui/pages/content/location/location_screen.dart';
 import 'package:red_periodistas/ui/pages/content/publications/publication_screen.dart';
 import 'package:red_periodistas/ui/pages/content/states/states_screen.dart';

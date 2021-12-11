@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   final VoidCallback onViewSwitch;
@@ -14,6 +16,22 @@ class _State extends State<SignUpScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  Controllerauth controluser = Get.find();
+  _registro(theEmail, thePassword) async {
+    print('_login $theEmail $thePassword');
+    try {
+      await controluser.registrarEmail(theEmail, thePassword);
+      Get.offNamed('/content');
+    } catch (err) {
+      print(err.toString());
+      Get.snackbar(
+        "Registro",
+        err.toString(),
+        icon: Icon(Icons.warning),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +96,7 @@ class _State extends State<SignUpScreen> {
                   padding: const EdgeInsets.all(14.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.offNamed('/content');
+                      _registro(emailController.text, passwordController.text);
                     },
                     child: const Text("Registrar"),
                   ),

@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "874737082355",
+    "firebase_url": "https://red-de-periodistas-default-rtdb.firebaseio.com",
+    "project_id": "red-de-periodistas",
+    "storage_bucket": "red-de-periodistas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874737082355:android:c2ba896fa282d8c0ebbc86",
+        "android_client_info": {
+          "package_name": "com.example.flutter_auth1276_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874737082355-litn4bou285vimvb72f734272f3foa4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_auth1276_firebase",
+            "certificate_hash": "0aff6049d3b44a6891e11236877f4dc96eb7afe5"
+          }
+        },
+        {
+          "client_id": "874737082355-ii2aads2dlq9q16h15vp7ut63otemugv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBurG-035nRmk9up4Op_Rtpoja-RZbjKzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874737082355-ii2aads2dlq9q16h15vp7ut63otemugv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874737082355:android:f241648269559829ebbc86",
+        "android_client_info": {
+          "package_name": "com.example.red_egresados"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874737082355-ii2aads2dlq9q16h15vp7ut63otemugv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBurG-035nRmk9up4Op_Rtpoja-RZbjKzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874737082355-ii2aads2dlq9q16h15vp7ut63otemugv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

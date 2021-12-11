@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
+import 'package:get/get.dart';
+import 'package:red_periodistas/ui/pages/content/content_page.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback onViewSwitch;
@@ -13,6 +16,24 @@ class LoginScreen extends StatefulWidget {
 class _State extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  Controllerauth controluser = Get.find();
+
+  _login(theEmail, thePassword) async {
+    print('_login $theEmail $thePassword');
+    try {
+      await controluser.ingresarEmail(theEmail, thePassword);
+
+      Get.offNamed('/content');
+    } catch (err) {
+      print(err.toString());
+      Get.showSnackbar(
+        GetBar(
+          message: err.toString(),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +89,7 @@ class _State extends State<LoginScreen> {
                   padding: const EdgeInsets.all(14.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.offNamed('/content');
+                      _login(emailController.text, passwordController.text);
                     },
                     child: const Text("Login"),
                   ),

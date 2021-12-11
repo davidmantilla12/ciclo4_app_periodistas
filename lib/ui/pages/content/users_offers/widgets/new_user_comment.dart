@@ -69,6 +69,7 @@ class _NewPostState extends State<NewUserComment> {
                   ),
                 );
                 usercontroller.comentar();
+                Navigator.pop(context);
               },
             )
           ],

@@ -67,6 +67,7 @@ class _NewPostState extends State<NewUserPost> {
                     duration: const Duration(seconds: 2),
                   ),
                 );
+                Navigator.pop(context);
               },
             )
           ],
