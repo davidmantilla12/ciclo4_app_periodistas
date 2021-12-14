@@ -78,10 +78,12 @@ class PostCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: IconButton(
-                  icon: Icon(
-                    Icons.thumb_up_alt_outlined,
-                    color: primaryColor,
-                  ),
+                  icon: Obx(() => Icon(
+                        usercontroller.reaccionado
+                            ? Icons.thumb_up_alt
+                            : Icons.thumb_up_alt_outlined,
+                        color: primaryColor,
+                      )),
                   onPressed: () {
                     usercontroller.reaccionar();
                   },

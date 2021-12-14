@@ -17,10 +17,10 @@ class _State extends State<SignUpScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   Controllerauth controluser = Get.find();
-  _registro(theEmail, thePassword) async {
-    print('_login $theEmail $thePassword');
+  _registro(theEmail, thePassword, name) async {
+
     try {
-      await controluser.registrarEmail(theEmail, thePassword);
+      await controluser.registrarEmail(theEmail, thePassword, name);
       Get.offNamed('/content');
     } catch (err) {
       print(err.toString());
@@ -96,7 +96,7 @@ class _State extends State<SignUpScreen> {
                   padding: const EdgeInsets.all(14.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      _registro(emailController.text, passwordController.text);
+                      _registro(emailController.text, passwordController.text, nameController.text);
                     },
                     child: const Text("Registrar"),
                   ),

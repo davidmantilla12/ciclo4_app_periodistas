@@ -19,8 +19,7 @@ class _State extends State<PublicOffersScreen> {
         body: ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {
-            // TODO: it should render all publications that have been made
-            return OfferCard(
+           return OfferCard(
               title:
                   'Conozca los nuevos tiempos de la convocatoria para el programa “Misión TIC 2022”',
               content:

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/connectivity.dart';
 import 'package:red_periodistas/ui/pages/content/location/location_screen.dart';
 import 'package:red_periodistas/ui/pages/content/publications/publication_screen.dart';
 import 'package:red_periodistas/ui/pages/content/states/states_screen.dart';
 import 'package:red_periodistas/ui/pages/content/chats/chats_screen.dart';
 import 'package:red_periodistas/ui/pages/content/users_offers/users_offers_screen.dart';
 import 'package:red_periodistas/ui/widgets/appbar.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({Key? key}) : super(key: key);
@@ -18,6 +20,9 @@ class ContentPage extends StatefulWidget {
 class _State extends State<ContentPage> {
   int _selectedIndex = 0;
   Widget _content = const StatesScreen();
+  Controllerauth controluser = Get.find();
+  ConnectivityController connectivityController =
+      Get.find<ConnectivityController>();
 
   // NavBar action
   void _onItemTapped(int index) {
@@ -52,6 +57,7 @@ class _State extends State<ContentPage> {
         tile: const Text("Query News"),
         context: context,
         onSignOff: () {
+          controluser.logOut();
           Get.offNamed('/auth');
         },
       ),
@@ -94,3 +100,4 @@ class _State extends State<ContentPage> {
     );
   }
 }
+

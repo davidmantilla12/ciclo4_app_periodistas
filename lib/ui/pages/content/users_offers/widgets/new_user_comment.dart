@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
 import 'package:red_periodistas/domain/use%20_cases/controllers/userofferscontroller.dart';
 
 class NewUserComment extends StatefulWidget {
@@ -13,6 +14,7 @@ class _NewPostState extends State<NewUserComment> {
   @override
   Widget build(BuildContext context) {
     Useroffercontroller usercontroller = Get.find();
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text(

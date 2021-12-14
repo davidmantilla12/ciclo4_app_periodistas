@@ -30,11 +30,18 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   get: ^4.5.1
+  font_awesome_flutter:
+  google_sign_in:
   firebase_core:
   firebase_auth:
-  google_sign_in:
-  font_awesome_flutter:
-  firebase_database: 
+  firebase_database:
+  cloud_firestore:
+  shared_preferences:
+  firebase_storage:
+  image_picker:
+  connectivity_plus:
+  location:
+  
 
 dev_dependencies:
   flutter_test:
