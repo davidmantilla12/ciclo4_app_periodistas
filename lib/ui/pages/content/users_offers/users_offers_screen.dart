@@ -8,7 +8,7 @@ import 'package:red_periodistas/ui/pages/content/users_offers/widgets/new_user_p
 import 'widgets/offer_card.dart';
 
 class UsersOffersScreen extends StatefulWidget {
-  // UsersOffersScreen empty constructor
+
   const UsersOffersScreen({Key? key}) : super(key: key);
 
   @override

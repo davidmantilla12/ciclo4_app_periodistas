@@ -27,6 +27,7 @@ class Controllerauth extends GetxController {
       UserCredential usuario = await auth.createUserWithEmailAndPassword(
           email: _email, password: _passw);
 
+      _name.value = name;
       _usuarior.value = usuario.user!.email;
       _uid.value = usuario.user!.uid;
       await _db
@@ -34,19 +35,17 @@ class Controllerauth extends GetxController {
           .doc(_uid.value.toString())
           .set(<String, dynamic>{'nombre': name.toString()});
       Get.showSnackbar(
-        GetBar(
-          message: "registro satisfactorio",
+        GetSnackBar(
+          message: "registro satisfactorio" + name.toString(),
           duration: const Duration(seconds: 2),
         ),
       );
-
-      print(usuario);
 
       return Future.value(true);
       // return Future.value(true);
     } on FirebaseAuthException catch (e) {
       Get.showSnackbar(
-        GetBar(
+        GetSnackBar(
           message: e.code,
           duration: const Duration(seconds: 2),
         ),
@@ -61,7 +60,7 @@ class Controllerauth extends GetxController {
     } catch (e) {
       print(e);
       Get.showSnackbar(
-        GetBar(
+        GetSnackBar(
           message: e.toString(),
           duration: const Duration(seconds: 2),
         ),
@@ -79,7 +78,7 @@ class Controllerauth extends GetxController {
       _name.value = documento['nombre'];
       Get.offNamed('/content');
       Get.showSnackbar(
-        GetBar(
+        GetSnackBar(
           message: "Bienvenido " + _name.value,
           duration: const Duration(seconds: 2),
         ),
@@ -87,22 +86,20 @@ class Controllerauth extends GetxController {
       return Future.value(true);
     } on FirebaseAuthException catch (e) {
       Get.showSnackbar(
-        GetBar(
+        GetSnackBar(
           message: e.code,
           duration: const Duration(seconds: 2),
         ),
       );
       if (e.code == 'user-not-found') {
-        print('Correo no encontrado');
-        return Future.error('user-not-found');
+        return Future.error('Usuario no encontrado');
       } else if (e.code == 'wrong-password') {
-        print('Password incorrecto');
-        return Future.error('wrong-password');
+        return Future.error('Contraseña errada');
       }
     } catch (e) {
       print(e);
       Get.showSnackbar(
-        GetBar(
+        GetSnackBar(
           message: e.toString(),
           duration: const Duration(seconds: 2),
         ),
@@ -132,9 +129,20 @@ class Controllerauth extends GetxController {
       _usuarior.value = usuario.user!.email;
       _uid.value = usuario.user!.uid;
       _name.value = usuario.user!.displayName;
-
+      Get.showSnackbar(
+        GetSnackBar(
+          message: "Bienvenido " + _name.value,
+          duration: const Duration(seconds: 2),
+        ),
+      );
       return Future.value(true);
     } catch (e) {
+      Get.showSnackbar(
+        GetSnackBar(
+          message: e.toString(),
+          duration: const Duration(seconds: 2),
+        ),
+      );
       return Future.error('Error');
     }
   }
