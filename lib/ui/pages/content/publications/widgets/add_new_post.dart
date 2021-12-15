@@ -1,5 +1,9 @@
+// ignore_for_file: unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/firestore.dart';
 import 'package:red_periodistas/domain/use%20_cases/controllers/publication_controller.dart';
 
 class NewPost extends StatefulWidget {
@@ -10,11 +14,16 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
-  final publicationCtrl = Get.put(PublicationCtrl());
+  Controllerauth userCtrl = Get.find();
+  ControllerFirestore controlFirestore = Get.find();
+
+  final title = TextEditingController();
+  final content = TextEditingController();
+  final category = TextEditingController();
+  final subCategory = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: get and handle data from new post view
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -33,7 +42,7 @@ class _NewPostState extends State<NewPost> {
           children: [
             // post title
             TextFormField(
-              controller: publicationCtrl.title,
+              controller: title,
               autofocus: true,
               maxLength: 100,
               keyboardType: TextInputType.multiline,
@@ -49,7 +58,7 @@ class _NewPostState extends State<NewPost> {
             const SizedBox(height: 20.0),
             // post content
             TextFormField(
-              controller: publicationCtrl.content,
+              controller: content,
               autocorrect: true,
               maxLines: 7,
               maxLength: 500,
@@ -66,7 +75,7 @@ class _NewPostState extends State<NewPost> {
             // post category
             const SizedBox(height: 20.0),
             TextFormField(
-              controller: publicationCtrl.category,
+              controller: category,
               autofocus: true,
               maxLength: 50,
               keyboardType: TextInputType.multiline,
@@ -82,7 +91,7 @@ class _NewPostState extends State<NewPost> {
             // post sub-category
             const SizedBox(height: 20.0),
             TextFormField(
-              controller: publicationCtrl.subCategory,
+              controller: subCategory,
               autofocus: true,
               maxLength: 50,
               keyboardType: TextInputType.multiline,
@@ -111,14 +120,28 @@ class _NewPostState extends State<NewPost> {
                   color: Colors.white70,
                 ),
               ),
-
               onPressed: () {
-                if (publicationCtrl.isPostEmpty()) {
+                // Make validation before add into database
+
+                if (isPostEmpty()) {
                   print('there must be at least one field empty!');
                   showAlertEmptyFields(context);
                 } else {
-                  publicationCtrl.info();
-                  publicationCtrl.clearFields();
+                  var date = '${DateTime.now().day.toString()}/' +
+                             '${DateTime.now().month.toString()}/' +
+                             '${DateTime.now().year.toString()}';
+                             
+                  final notice = <String, dynamic>{
+                    'publisher': userCtrl.name,
+                    'date': date,
+                    'title': title.text,
+                    'content': content.text,
+                    'category': category.text,
+                    'subCategory': subCategory.text,
+                  };
+
+                  controlFirestore.createNewNotice(notice);
+
                   Navigator.pop(context);
                   confirmNewPost();
                 }
@@ -150,7 +173,6 @@ class _NewPostState extends State<NewPost> {
               Text('Campos incompletos'),
             ],
           ),
-
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
@@ -160,7 +182,6 @@ class _NewPostState extends State<NewPost> {
               ],
             ),
           ),
-
           actions: <Widget>[
             TextButton(
               child: const Text('Aceptar'),
@@ -172,5 +193,15 @@ class _NewPostState extends State<NewPost> {
         );
       },
     );
+  }
+
+   isPostEmpty() {
+    /// return true if all fields has been fulfilled, otherwise false
+    return title.text.trim().isNotEmpty &&
+           content.text.trim().isNotEmpty &&
+           category.text.trim().isNotEmpty &&
+           subCategory.text.trim().isNotEmpty
+        ? false
+        : true;
   }
 }

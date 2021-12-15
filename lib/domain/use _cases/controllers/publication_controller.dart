@@ -1,45 +1,60 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class PublicationCtrl extends GetxController {
+  final title;
+  final content;
+  final category;
+  final subCategory;
 
-  // String? _publisher;
-  // DateTime? _updateDate;
-  final _title = TextEditingController();
-  final _content = TextEditingController();
-  final _category = TextEditingController();
-  final _subCategory = TextEditingController();
-
-  get title => _title;
-  get content => _content;
-  get category => _category;
-  get subCategory => _subCategory;
+  PublicationCtrl(this.title, this.content, this.category, this.subCategory);
 
   isPostEmpty() {
     /// return true if all fields has been fulfilled, otherwise false
-    return _title.text.trim().isNotEmpty &&
-           _content.text.trim().isNotEmpty &&
-           _category.text.trim().isNotEmpty &&
-           _subCategory.text.trim().isNotEmpty ?
-           false :
-           true;
+    return title.text.trim().isNotEmpty &&
+            content.text.trim().isNotEmpty &&
+            category.text.trim().isNotEmpty &&
+            subCategory.text.trim().isNotEmpty
+        ? false
+        : true;
   }
 
   clearFields() {
-    _title.clear();
-    _content.clear();
-    _category.clear();
-    _subCategory.clear();
+    title.clear();
+    content.clear();
+    category.clear();
+    subCategory.clear();
   }
+}
 
+class FirebaseConnection {
+  getUser() async {
+    CollectionReference publicationCol =
+        FirebaseFirestore.instance.collection('notice_publication');
 
-  info() {
+    // publicationCol.doc().set({
+    //   'publisher': 'Camilo',
+    //   'date': DateTime.now(),
+    //   'title': 'A title',
+    //   'abstract': 'the abstract',
+    //   'category': 'the category',
+    //   'sub_category': 'the sub_category',
+    // });
 
-    var text = _title.text;
-    print('post publication date: ${DateTime.now()}\n'
-          'post title: ${_title.text.trim()}\n'
-          'post content: ${_content.text.trim()}\n'
-          'post category: ${_category.text.trim()}\n'
-          'post subcategory: ${_subCategory.text.trim()}\n');
+    QuerySnapshot notices = await publicationCol.get();
+    var hola = publicationCol.snapshots();
+
+    if (notices.docs.length != 0) {
+      for (var item in notices.docs) {
+        var name = item.data();
+        print(name);
+        print(item.data());
+      }
+      hola.forEach((element) {
+        print(element.docs);
+      });
+    } else {
+      print('there is not values in database');
+    }
   }
 }

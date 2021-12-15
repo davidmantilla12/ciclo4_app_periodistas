@@ -1,4 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:red_periodistas/domain/models/notice_publication.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/firestore.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/publication_controller.dart';
 import 'package:red_periodistas/ui/pages/content/publications/widgets/add_new_post.dart';
 import 'package:red_periodistas/ui/pages/content/publications/widgets/post_card.dart';
 
@@ -11,28 +17,15 @@ class PublicOffersScreen extends StatefulWidget {
 }
 
 class _State extends State<PublicOffersScreen> {
+  ControllerFirestore controlp = Get.find();
+  Controllerauth controluser = Get.find();
+
   final items = List<String>.generate(20, (i) => "Item $i");
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-           return OfferCard(
-              title:
-                  'Conozca los nuevos tiempos de la convocatoria para el programa “Misión TIC 2022”',
-              content:
-                  'El Ministerio de Tecnologías de la Información y las Comunicaciones, informa a todos los interesados en participar de la convocatoria de la ruta de aprendizaje 1 y 2, la modificación del cronograma.',
-              source: 'Emisora Ondas de Ibagué',
-              fecha: "20/11/2021",
-              enlace:
-                  "http://www.ondasdeibague.com/noticias/nacionales/40422-conozca-los-nuevos-tiempos-de-la-convocatoria-para-el-programa-mision-tic-2022",
-              onCopy: () => {},
-              onApply: () => {},
-            );
-          },
-        ),
+        body: _buildbody(),
 
         // add a new post
         floatingActionButton: FloatingActionButton.extended(
@@ -50,11 +43,66 @@ class _State extends State<PublicOffersScreen> {
               color: Colors.white70,
             ),
           ),
-
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const NewPost()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const NewPost()));
+
+            FirebaseConnection fbc = FirebaseConnection();
+
+            fbc.getUser();
           },
         ));
+  }
+
+  Widget _buildbody() {
+    if (controlp.refPublicaciones == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return StreamBuilder(
+        stream: controlp.readNotice(),
+        builder: _buildList,
+      );
+    }
+  }
+
+  Widget _buildList(
+      BuildContext buildContext, AsyncSnapshot<QuerySnapshot> snapshot) {
+    if (!snapshot.hasData) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      if (snapshot.data!.docs.isEmpty) {
+        return Center(
+          child: Flex(
+            direction: Axis.vertical,
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text(
+                "Aun no hay noticias, intenta hacer alguna!",
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        );
+      } else {
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            // ignore: unused_local_variable
+            Notice noticeList = Notice.from(document);
+            return OfferCard(
+              publisher: noticeList.publisher,
+              date: noticeList.date,
+              title: noticeList.title,
+              content: noticeList.content,
+              category: noticeList.category,
+              subCategory: noticeList.subCategory,
+            );
+          }).toList(),
+        );
+      }
+    }
   }
 }

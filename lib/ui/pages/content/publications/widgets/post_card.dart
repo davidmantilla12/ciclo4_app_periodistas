@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:red_periodistas/ui/widgets/card.dart';
 
 class OfferCard extends StatelessWidget {
-  final String title, content, source, fecha, enlace;
-  final VoidCallback onCopy, onApply;
+  final String publisher, title, content, category, subCategory, date;
 
   // OfferCard constructor
-  const OfferCard(
-      {Key? key,
-      required this.title,
-      required this.content,
-      required this.source,
-      required this.fecha,
-      required this.enlace,
-      required this.onCopy,
-      required this.onApply})
-      : super(key: key);
+  const OfferCard({
+    Key? key,
+    required this.publisher,
+    required this.title,
+    required this.content,
+    required this.category,
+    required this.date,
+    required this.subCategory,
+  }) : super(key: key);
 
   // We create a Stateless widget that contais an AppCard,
   // Passing all the customizable views as parameters
@@ -25,29 +21,12 @@ class OfferCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return AppCard(
-      title: title,
+      title: '$title | por: $publisher',
       content: Text(
         content,
         style: Theme.of(context).textTheme.bodyText1,
       ),
-      // topRightWidget widget as an IconButton
-      topRightWidget: IconButton(
-        icon: Icon(
-          Icons.copy_outlined,
-          color: primaryColor,
-        ),
-        onPressed: () {
-          Clipboard.setData(ClipboardData(text: enlace));
-          Get.showSnackbar(
-            const GetSnackBar(
-              message: "Se ha copiado el enlace de la noticia al portapapeles.",
-              duration: Duration(seconds: 2),
-            ),
-          );
-        },
-      ),
-      // extraContent widget as a column that contains more details about the offer
-      // and an extra action (onApply)
+
       extraContent: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -56,13 +35,21 @@ class OfferCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Icon(
-                  Icons.source_outlined,
+                  Icons.category_rounded,
                   color: primaryColor,
                 ),
               ),
-              Text(
-                source,
-                style: Theme.of(context).textTheme.caption,
+              Column(
+                children: [
+                  Text(
+                    '- $category',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  Text(
+                    '- $subCategory',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ],
               ),
               const Spacer(),
               Padding(
@@ -73,7 +60,7 @@ class OfferCard extends StatelessWidget {
                 ),
               ),
               Text(
-                fecha,
+                date,
                 style: Theme.of(context).textTheme.caption,
               ),
             ],

@@ -11,10 +11,29 @@ class ControllerFirestore extends GetxController {
   static final CollectionReference _publicacionesRef =
       _db.collection("Publicaciones");
 
+  static final CollectionReference _noticeRef =
+      _db.collection("notice_publication");
+
   CollectionReference get refPublicaciones => _publicacionesRef;
+
+  CollectionReference get noticeRef => _noticeRef;
 
   Stream<QuerySnapshot> readItems() {
     return _publicacionesRef.snapshots();
+  }
+
+  Stream<QuerySnapshot> readNotice() {
+    return _noticeRef.snapshots();
+  }
+
+  Future createNewNotice(Map<String, dynamic> newNotice) async {
+    await _db
+        .collection('notice_publication')
+        .doc()
+        .set(newNotice)
+        .catchError((e) {
+      print(e.toString());
+    });
   }
 
   Future<void> crearpublicacion(Map<String, dynamic> publicacion) async {

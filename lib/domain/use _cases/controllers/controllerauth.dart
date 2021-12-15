@@ -68,6 +68,8 @@ class Controllerauth extends GetxController {
     }
   }
 
+
+
   Future<void> ingresarEmail(dynamic email, dynamic pass) async {
     try {
       UserCredential usuario =
