@@ -22,6 +22,11 @@ class ControllerFirestore extends GetxController {
     return _publicacionesRef.snapshots();
   }
 
+  Stream<QuerySnapshot> readComm(String pubid) {
+    print(pubid);
+    return _publicacionesRef.doc(pubid).collection('Comentarios').snapshots();
+  }
+
   Stream<QuerySnapshot> readNotice() {
     return _noticeRef.snapshots();
   }
@@ -44,6 +49,7 @@ class ControllerFirestore extends GetxController {
         .catchError((e) {
       print(e);
     });
+
     //return true;
   }
 

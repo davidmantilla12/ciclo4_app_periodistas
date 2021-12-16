@@ -37,7 +37,7 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: "registro satisfactorio" + name.toString(),
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 1),
         ),
       );
 
@@ -47,7 +47,7 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: e.code,
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 1),
         ),
       );
       if (e.code == 'weak-password') {
@@ -62,13 +62,11 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: e.toString(),
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 1),
         ),
       );
     }
   }
-
-
 
   Future<void> ingresarEmail(dynamic email, dynamic pass) async {
     try {
@@ -82,7 +80,7 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: "Bienvenido " + _name.value,
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 1),
         ),
       );
       return Future.value(true);

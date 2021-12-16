@@ -1,23 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart' as fdb;
 import 'package:get/get.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
 
 class Useroffercontroller extends GetxController {
   //Controlador para reacciones
+  static final FirebaseFirestore _db = FirebaseFirestore.instance;
+  static final CollectionReference _publicacionesRef =
+      _db.collection("Publicaciones");
 
-  var _reacciones = 0.obs;
-  var _reaccionado = false.obs;
-  int get cantreacciones => _reacciones.value;
-  bool get reaccionado => _reaccionado.value;
+  String _pubid = "";
+  int _numcomm = 0;
+  get pubid => _pubid;
+  get num_comm => _numcomm;
 
-  reaccionar() {
-    if (_reaccionado.value) {
-      _reacciones.value -= 1;
-      _reaccionado.value = false;
-    } else {
-      _reacciones.value += 1;
-      _reaccionado.value = true;
-    }
-    _reacciones.refresh();
-    _reaccionado.refresh();
+  reaccionar(String pubid, int num_reacciones, String uid) {
+    num_reacciones++;
+    _publicacionesRef.doc(pubid).update({'num_reacciones': num_reacciones});
   }
 
   // Controlador para compartidas
@@ -35,7 +34,21 @@ class Useroffercontroller extends GetxController {
   var _comentar = 0.obs;
   int get cantcomentarios => _comentar.value;
 
-  comentar() {
-    _comentar.value += 1;
+  setpubid(pubid) {
+    _pubid = pubid;
+  }
+
+  comentar(String uid, String cuerpo, String name) {
+    _publicacionesRef
+        .doc(_pubid)
+        .collection('Comentarios')
+        .doc()
+        .set({'uid_comm': uid, 'cuerpo': cuerpo, 'uname': name});
+    _numcomm++;
+    _publicacionesRef.doc(_pubid).update({'num_comm': _numcomm});
+  }
+
+  void setnumcomm(int num_comm) {
+    _numcomm = num_comm;
   }
 }
