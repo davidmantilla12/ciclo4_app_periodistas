@@ -6,22 +6,21 @@ import 'package:google_sign_in/google_sign_in.dart';
 class Controllerauth extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  late Rx<dynamic> _usuarior = "Sin Registro".obs;
-  late Rx<dynamic> _uid = "".obs;
-  late Rx<dynamic> _name = "Anonimo".obs;
-  late Rx<dynamic> _photo = "".obs;
+  late final Rx<dynamic> _usuarior = "Sin Registro".obs;
+  late final Rx<dynamic> _uid = "".obs;
+  late final Rx<dynamic> _name = "Anonimo".obs;
+  late final Rx<dynamic> _photo = "".obs;
 
-  RxString _nombreobtenido = "".obs;
-
-  CollectionReference _nombres =
+  final CollectionReference _nombres =
       FirebaseFirestore.instance.collection("Usuarios");
 
+  CollectionReference get usuariosref => _nombres;
   String get userf => _usuarior.value;
   String get photorul => _photo.value;
   String get uid => _uid.value;
   String get name => _name.value;
 
-  Future<void> registrarEmail(
+  Future<dynamic> registrarEmail(
       dynamic _email, dynamic _passw, dynamic name) async {
     try {
       UserCredential usuario = await auth.createUserWithEmailAndPassword(
@@ -33,7 +32,11 @@ class Controllerauth extends GetxController {
       await _db
           .collection('Usuarios')
           .doc(_uid.value.toString())
-          .set(<String, dynamic>{'nombre': name.toString()});
+          .set(<String, dynamic>{
+        'nombre': name.toString(),
+        'latitud': 0.0,
+        'longitud': 0.0
+      });
       Get.showSnackbar(
         GetSnackBar(
           message: "registro satisfactorio" + name.toString(),
@@ -53,12 +56,9 @@ class Controllerauth extends GetxController {
       if (e.code == 'weak-password') {
         return Future.error('La contraseña ingresada es muy débil.');
       } else if (e.code == 'email-already-in-use') {
-        print('Correo ya Existe');
-
         return Future.error('Ya existe un usuario con ese correo.');
       }
     } catch (e) {
-      print(e);
       Get.showSnackbar(
         GetSnackBar(
           message: e.toString(),
@@ -68,9 +68,13 @@ class Controllerauth extends GetxController {
     }
   }
 
+<<<<<<< HEAD
 
 
   Future<void> ingresarEmail(dynamic email, dynamic pass) async {
+=======
+  Future<dynamic> ingresarEmail(dynamic email, dynamic pass) async {
+>>>>>>> 5d1bc9b93a00b84a747b6757e371d93f16e21c39
     try {
       UserCredential usuario =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
@@ -99,7 +103,6 @@ class Controllerauth extends GetxController {
         return Future.error('Contraseña errada');
       }
     } catch (e) {
-      print(e);
       Get.showSnackbar(
         GetSnackBar(
           message: e.toString(),
@@ -109,7 +112,7 @@ class Controllerauth extends GetxController {
     }
   }
 
-  Future<void> ingresarGoogle() async {
+  Future<dynamic> ingresarGoogle() async {
     // Trigger the authentication flow
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -162,5 +165,9 @@ class Controllerauth extends GetxController {
     DocumentSnapshot documento = await _nombres.doc(uid).get();
     String nombre = documento['nombre'];
     return nombre;
+  }
+
+  Stream<QuerySnapshot> readUserItems() {
+    return _nombres.snapshots();
   }
 }

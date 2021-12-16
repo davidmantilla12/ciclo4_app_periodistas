@@ -36,7 +36,7 @@ class _State extends State<ContentPage> {
           _content = const PublicOffersScreen();
           break;
         case 3:
-          _content = const LocationScreen();
+          _content = GpsPage();
           break;
         case 4:
           _content = const ChatsScreen();
@@ -100,4 +100,3 @@ class _State extends State<ContentPage> {
     );
   }
 }
-

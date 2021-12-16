@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:red_periodistas/ui/widgets/card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LocationCard extends StatelessWidget {
-  final String title;
+  final String name;
+  final String uid;
   final double lat, long;
   final double? distance;
   final VoidCallback? onUpdate;
@@ -10,7 +14,8 @@ class LocationCard extends StatelessWidget {
   // PostCard constructor
   const LocationCard(
       {Key? key,
-      required this.title,
+      required this.name,
+      required this.uid,
       required this.lat,
       required this.long,
       this.distance,
@@ -21,17 +26,24 @@ class LocationCard extends StatelessWidget {
   // Passing all the customizable views as parameters
   @override
   Widget build(BuildContext context) {
+    final CollectionReference _usuarios =
+        FirebaseFirestore.instance.collection("Usuarios");
     Color primaryColor = Theme.of(context).colorScheme.primary;
+
     return AppCard(
-      title: title,
+      title: name,
       // topLeftWidget widget as an Icon
       topLeftWidget: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Icon(
-          onUpdate != null
+        child: IconButton(
+          icon: Icon(onUpdate != null
               ? Icons.my_location_outlined
-              : Icons.near_me_outlined,
+              : Icons.near_me_outlined),
           color: primaryColor,
+          onPressed: () async {
+            final url = "https://www.google.es/maps?q=$lat,$long";
+            await launch(url);
+          },
         ),
       ),
       // topRightWidget widget as an IconButton or null
@@ -42,7 +54,10 @@ class LocationCard extends StatelessWidget {
                 Icons.sync_outlined,
                 color: primaryColor,
               ),
-              onPressed: onUpdate,
+              onPressed: () {
+                onUpdate;
+                
+              },
             )
           : null,
       content: Row(
@@ -92,18 +107,6 @@ class LocationCard extends StatelessWidget {
           ))
         ],
       ),
-      /* extraContent: GridView.count(
-        crossAxisCount: 2,
-        children: [
-          Center(
-            child:
-          ),
-
-        ),
-
-
-        ],
-      ), */
     );
   }
 }
