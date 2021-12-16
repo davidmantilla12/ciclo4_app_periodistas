@@ -68,13 +68,7 @@ class Controllerauth extends GetxController {
     }
   }
 
-<<<<<<< HEAD
-
-
-  Future<void> ingresarEmail(dynamic email, dynamic pass) async {
-=======
   Future<dynamic> ingresarEmail(dynamic email, dynamic pass) async {
->>>>>>> 5d1bc9b93a00b84a747b6757e371d93f16e21c39
     try {
       UserCredential usuario =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
