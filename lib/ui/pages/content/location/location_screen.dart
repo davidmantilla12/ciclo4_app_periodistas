@@ -1,51 +1,28 @@
 import 'package:flutter/material.dart';
-import 'widgets/location_card.dart';
+import 'package:get/get.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
+import 'package:red_periodistas/domain/use%20_cases/controllers/theme_controller.dart';
+import 'package:red_periodistas/ui/widgets/appbar.dart';
 
-class LocationScreen extends StatefulWidget {
-  // UsersOffers empty constructor
-  const LocationScreen({Key? key}) : super(key: key);
+import 'screen/gps_screen.dart';
 
-  @override
-  _State createState() => _State();
-}
+class GpsPage extends StatelessWidget {
+  final ThemeController controller = Get.find();
+  GpsPage({Key? key}) : super(key: key);
 
-class _State extends State<LocationScreen> {
-  final items = List<String>.generate(8, (i) => "Item $i");
-
+  // We create a Scaffold that is used for all the content pages
+  // We only define one AppBar, and one scaffold.
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        LocationCard(
-          title: 'MI UBICACIÓN',
-          lat: 11.004556423794284,
-          long: -74.7217010498047,
-          onUpdate: () {},
+    Controllerauth controluser = Get.find();
+    // ignore: prefer_const_constructors
+    return Scaffold(
+      body: const SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+          child: GpsScreen(),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            'CERCA DE MÍ',
-            style: Theme.of(context).textTheme.headline1,
-          ),
-        ),
-        // ListView on remaining screen space
-        Expanded(
-          child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return LocationCard(
-                title: 'John Doe',
-                lat: 11.004556423794284,
-                long: -74.7217010498047,
-                distance: 25,
-                onUpdate: () {},
-              );
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
