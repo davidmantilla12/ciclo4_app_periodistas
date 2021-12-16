@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:red_periodistas/domain/models/publicaciones.dart';
 import 'package:red_periodistas/domain/use%20_cases/controllers/controllerauth.dart';
 import 'package:red_periodistas/domain/use%20_cases/controllers/firestore.dart';
-import 'package:red_periodistas/domain/use%20_cases/controllers/userofferscontroller.dart';
 import 'package:red_periodistas/ui/pages/content/users_offers/widgets/new_user_post.dart';
 import 'widgets/offer_card.dart';
 
 class UsersOffersScreen extends StatefulWidget {
+
   const UsersOffersScreen({Key? key}) : super(key: key);
 
   @override
@@ -18,7 +18,6 @@ class UsersOffersScreen extends StatefulWidget {
 class _State extends State<UsersOffersScreen> {
   ControllerFirestore controlp = Get.find();
   Controllerauth controluser = Get.find();
-  Useroffercontroller useroffercontroller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +87,8 @@ class _State extends State<UsersOffersScreen> {
             return PostCard(
               title: listaPublicaciones.uname,
               content: listaPublicaciones.cuerpo_pub,
-              pubid: listaPublicaciones.id_publicacion,
-              num_comm: listaPublicaciones.num_comm,
-              num_reacciones: listaPublicaciones.num_reacciones,
-              num_shares: listaPublicaciones.num_shares,
-              uid_pub: listaPublicaciones.uid_pub,
-              uid: controluser.uid,
+              picUrl:
+                  'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
               onChat: () => {},
             );
           }).toList(),

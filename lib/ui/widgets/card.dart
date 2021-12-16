@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppCard extends StatelessWidget {
   final Widget? topLeftWidget, topRightWidget, content, extraContent;
+  final Color? cardColor;
+  final EdgeInsetsGeometry? cardMargin;
   final String title;
 
   // AppCard constructor
@@ -11,7 +13,10 @@ class AppCard extends StatelessWidget {
       this.content,
       this.topLeftWidget,
       this.topRightWidget,
-      this.extraContent})
+      this.extraContent,
+      this.cardColor,
+      this.cardMargin
+      })
       : super(
           key: key,
         );
@@ -21,6 +26,9 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      // card color and card margin are use to personalize user messages
+      margin: cardMargin,
+      color: cardColor,
       elevation: 2,
       child: Container(
         padding: const EdgeInsets.only(

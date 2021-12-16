@@ -15,7 +15,7 @@ class NewPost extends StatefulWidget {
 
 class _NewPostState extends State<NewPost> {
   Controllerauth userCtrl = Get.find();
-  ControllerFirestore controlFirestore = Get.find();
+  ControllerFirestore firestoreCtrl = Get.find();
 
   final title = TextEditingController();
   final content = TextEditingController();
@@ -27,7 +27,7 @@ class _NewPostState extends State<NewPost> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Nueva publicación',
+          'Nueva Noticia',
           style: TextStyle(
             color: Colors.white,
             fontSize: 18.0,
@@ -51,7 +51,7 @@ class _NewPostState extends State<NewPost> {
                   labelStyle: TextStyle(
                     fontSize: 25.0,
                   ),
-                  hintText: 'Agrega el título de tu post',
+                  hintText: 'Agrega el título de tu noticia',
                   hintStyle: TextStyle(color: Colors.grey)),
             ),
 
@@ -61,10 +61,10 @@ class _NewPostState extends State<NewPost> {
               controller: content,
               autocorrect: true,
               maxLines: 7,
-              maxLength: 500,
+              maxLength: 5000,
               keyboardType: TextInputType.multiline,
               decoration: const InputDecoration(
-                  label: Text('Resumen'),
+                  label: Text('Contenido'),
                   labelStyle: TextStyle(
                     fontSize: 25.0,
                   ),
@@ -140,7 +140,7 @@ class _NewPostState extends State<NewPost> {
                     'subCategory': subCategory.text,
                   };
 
-                  controlFirestore.createNewNotice(notice);
+                  firestoreCtrl.createNewNotice(notice);
 
                   Navigator.pop(context);
                   confirmNewPost();

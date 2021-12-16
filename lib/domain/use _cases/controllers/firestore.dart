@@ -14,30 +14,36 @@ class ControllerFirestore extends GetxController {
   static final CollectionReference _noticeRef =
       _db.collection("notice_publication");
 
+  static final CollectionReference _messageRef =
+      _db.collection('messages');
+
   CollectionReference get refPublicaciones => _publicacionesRef;
 
   CollectionReference get noticeRef => _noticeRef;
 
+  CollectionReference get messageRef => _messageRef;
+
   Stream<QuerySnapshot> readItems() {
     return _publicacionesRef.snapshots();
-  }
-
-  Stream<QuerySnapshot> readComm(String pubid) {
-    print(pubid);
-    return _publicacionesRef.doc(pubid).collection('Comentarios').snapshots();
   }
 
   Stream<QuerySnapshot> readNotice() {
     return _noticeRef.snapshots();
   }
 
+  Stream<QuerySnapshot> readMessage() {
+    return _messageRef.snapshots();
+  }
+
   Future createNewNotice(Map<String, dynamic> newNotice) async {
-    await _db
-        .collection('notice_publication')
-        .doc()
-        .set(newNotice)
-        .catchError((e) {
-      print(e.toString());
+    await _noticeRef
+          .doc().set(newNotice).catchError((e) {print(e.toString());
+    });
+  }
+
+  Future createNewMessage(Map<String, dynamic> newMessage) async {
+    await _messageRef
+          .doc().set(newMessage).catchError((e) {print(e.toString());
     });
   }
 
@@ -49,7 +55,6 @@ class ControllerFirestore extends GetxController {
         .catchError((e) {
       print(e);
     });
-
     //return true;
   }
 

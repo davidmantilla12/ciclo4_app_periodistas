@@ -5,25 +5,15 @@ import 'package:red_periodistas/ui/pages/content/users_offers/widgets/new_user_c
 import 'package:red_periodistas/ui/widgets/card.dart';
 
 class PostCard extends StatelessWidget {
-  final String title, content, uid;
+  final String title, content, picUrl;
   final VoidCallback onChat;
-  final String pubid;
-  final int num_reacciones;
-  final int num_comm;
-  final int num_shares;
-  final String uid_pub;
 
   // PostCard constructor
   const PostCard(
       {Key? key,
       required this.title,
       required this.content,
-      required this.uid,
-      required this.pubid,
-      required this.num_reacciones,
-      required this.num_comm,
-      required this.num_shares,
-      required this.uid_pub,
+      required this.picUrl,
       required this.onChat})
       : super(key: key);
 
@@ -33,7 +23,6 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Useroffercontroller usercontroller = Get.find();
     Color primaryColor = Theme.of(context).colorScheme.primary;
-
     return AppCard(
       title: title,
       content: Text(
@@ -41,15 +30,14 @@ class PostCard extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyText1,
       ),
       // topLeftWidget widget as an Avatar
-      topLeftWidget: const SizedBox(
+      topLeftWidget: SizedBox(
         height: 48.0,
         width: 48.0,
         child: Center(
           child: CircleAvatar(
             minRadius: 14.0,
             maxRadius: 14.0,
-            backgroundImage: NetworkImage(
-                'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'),
+            backgroundImage: NetworkImage(picUrl),
           ),
         ),
       ),
@@ -75,8 +63,6 @@ class PostCard extends StatelessWidget {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                    usercontroller.setpubid(pubid);
-                    usercontroller.setnumcomm(num_comm);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -84,27 +70,29 @@ class PostCard extends StatelessWidget {
                   },
                 ),
               ),
-              Text(
-                num_comm.toString(),
-                style: Theme.of(context).textTheme.caption,
-              ),
+              Obx(() => Text(
+                    usercontroller.cantcomentarios.toString(),
+                    style: Theme.of(context).textTheme.caption,
+                  )),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: IconButton(
-                  icon: Icon(
-                    Icons.thumb_up_alt_outlined,
-                    color: primaryColor,
-                  ),
+                  icon: Obx(() => Icon(
+                        usercontroller.reaccionado
+                            ? Icons.thumb_up_alt
+                            : Icons.thumb_up_alt_outlined,
+                        color: primaryColor,
+                      )),
                   onPressed: () {
-                    usercontroller.reaccionar(pubid, num_reacciones, uid);
+                    usercontroller.reaccionar();
                   },
                 ),
               ),
-              Text(
-                num_reacciones.toString(),
-                style: Theme.of(context).textTheme.caption,
-              ),
+              Obx(() => Text(
+                    usercontroller.cantreacciones.toString(),
+                    style: Theme.of(context).textTheme.caption,
+                  )),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(4.0),
