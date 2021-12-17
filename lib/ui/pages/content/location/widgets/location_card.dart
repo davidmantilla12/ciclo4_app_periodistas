@@ -55,8 +55,7 @@ class LocationCard extends StatelessWidget {
                 color: primaryColor,
               ),
               onPressed: () {
-                onUpdate;
-                
+                onUpdate!();
               },
             )
           : null,
@@ -100,7 +99,11 @@ class LocationCard extends StatelessWidget {
               ),
               if (distance != null)
                 Text(
-                  '$distance Km',
+                  distance! < 1
+                      ? (distance! * 1000).toStringAsPrecision(5) + ' m'
+                      : distance! < 1000
+                          ? distance!.toStringAsPrecision(5) + ' Km'
+                          : distance!.toStringAsPrecision(6) + ' Km',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
             ],

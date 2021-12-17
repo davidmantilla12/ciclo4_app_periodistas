@@ -8,7 +8,6 @@ import 'package:red_periodistas/ui/pages/content/users_offers/widgets/new_user_p
 import 'widgets/offer_card.dart';
 
 class UsersOffersScreen extends StatefulWidget {
-
   const UsersOffersScreen({Key? key}) : super(key: key);
 
   @override
@@ -87,6 +86,7 @@ class _State extends State<UsersOffersScreen> {
             return PostCard(
               title: listaPublicaciones.uname,
               content: listaPublicaciones.cuerpo_pub,
+              fecha: listaPublicaciones.fecha_pub,
               picUrl:
                   'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
               onChat: () => {},

@@ -11,13 +11,16 @@ class ControllerFirestore extends GetxController {
   static final CollectionReference _publicacionesRef =
       _db.collection("Publicaciones");
 
+  static final CollectionReference _statesRef = _db.collection("Estados");
+
   static final CollectionReference _noticeRef =
       _db.collection("notice_publication");
 
-  static final CollectionReference _messageRef =
-      _db.collection('messages');
+  static final CollectionReference _messageRef = _db.collection('messages');
 
   CollectionReference get refPublicaciones => _publicacionesRef;
+
+  CollectionReference get refState => _statesRef;
 
   CollectionReference get noticeRef => _noticeRef;
 
@@ -25,6 +28,10 @@ class ControllerFirestore extends GetxController {
 
   Stream<QuerySnapshot> readItems() {
     return _publicacionesRef.snapshots();
+  }
+
+  Stream<QuerySnapshot> readStates() {
+    return _statesRef.snapshots();
   }
 
   Stream<QuerySnapshot> readNotice() {
@@ -36,14 +43,14 @@ class ControllerFirestore extends GetxController {
   }
 
   Future createNewNotice(Map<String, dynamic> newNotice) async {
-    await _noticeRef
-          .doc().set(newNotice).catchError((e) {print(e.toString());
+    await _noticeRef.doc().set(newNotice).catchError((e) {
+      print(e.toString());
     });
   }
 
   Future createNewMessage(Map<String, dynamic> newMessage) async {
-    await _messageRef
-          .doc().set(newMessage).catchError((e) {print(e.toString());
+    await _messageRef.doc().set(newMessage).catchError((e) {
+      print(e.toString());
     });
   }
 
@@ -53,6 +60,13 @@ class ControllerFirestore extends GetxController {
         .doc()
         .set(publicacion)
         .catchError((e) {
+      print(e);
+    });
+    //return true;
+  }
+
+  Future<void> crearestado(Map<String, dynamic> estado) async {
+    await _db.collection('Estados').doc().set(estado).catchError((e) {
       print(e);
     });
     //return true;

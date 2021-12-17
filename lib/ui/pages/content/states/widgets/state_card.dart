@@ -1,16 +1,20 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:red_periodistas/ui/widgets/card.dart';
 
 class StateCard extends StatelessWidget {
-  final String title, content, picUrl;
+  final String name, cuerpo, uid_estado;
+  final DateTime fecha;
   final VoidCallback onChat;
 
   // StateCard constructor
   const StateCard(
       {Key? key,
-      required this.title,
-      required this.content,
-      required this.picUrl,
+      required this.name,
+      required this.cuerpo,
+      required this.fecha,
+      required this.uid_estado,
       required this.onChat})
       : super(key: key);
 
@@ -20,20 +24,30 @@ class StateCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return AppCard(
-      title: title,
+      title: name +
+          ' (' +
+          fecha.day.toString() +
+          '/' +
+          fecha.month.toString() +
+          ' - ' +
+          fecha.hour.toString() +
+          ':' +
+          fecha.minute.toString() +
+          ')',
       content: Text(
-        content,
+        cuerpo,
         style: Theme.of(context).textTheme.bodyText1,
       ),
       // topLeftWidget widget as an Avatar
-      topLeftWidget: SizedBox(
+      topLeftWidget: const SizedBox(
         height: 48.0,
         width: 48.0,
         child: Center(
           child: CircleAvatar(
             minRadius: 14.0,
             maxRadius: 14.0,
-            backgroundImage: NetworkImage(picUrl),
+            backgroundImage: NetworkImage(
+                'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'),
           ),
         ),
       ),

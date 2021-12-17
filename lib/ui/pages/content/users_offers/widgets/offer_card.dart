@@ -6,6 +6,7 @@ import 'package:red_periodistas/ui/widgets/card.dart';
 
 class PostCard extends StatelessWidget {
   final String title, content, picUrl;
+  final DateTime fecha;
   final VoidCallback onChat;
 
   // PostCard constructor
@@ -13,6 +14,7 @@ class PostCard extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.content,
+      required this.fecha,
       required this.picUrl,
       required this.onChat})
       : super(key: key);
@@ -24,7 +26,16 @@ class PostCard extends StatelessWidget {
     Useroffercontroller usercontroller = Get.find();
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return AppCard(
-      title: title,
+      title: title +
+          ' (' +
+          fecha.day.toString() +
+          '/' +
+          fecha.month.toString() +
+          ' - ' +
+          fecha.hour.toString() +
+          ':' +
+          fecha.minute.toString() +
+          ')',
       content: Text(
         content,
         style: Theme.of(context).textTheme.bodyText1,

@@ -46,6 +46,7 @@ class _State extends State<GpsScreen> {
     permissionsController = Get.find();
     locationController = Get.find();
     manager = LocationManager();
+    onUpdate();
   }
 
   @override
@@ -56,19 +57,7 @@ class _State extends State<GpsScreen> {
         Obx(() => LocationCard(
               name: controluser.name,
               uid: controluser.uid,
-              onUpdate: locationController.location.value != null
-                  ? () async {
-                      final position = locationController.location.value;
-                      final url =
-                          "https://www.google.es/maps?q=${position?.latitude.toPrecision(5)},${position?.longitude.toPrecision(5)}";
-                      _usuarios.doc(controluser.uid).update({
-                        'latitud': position?.latitude,
-                        'longitud': position?.longitude
-                      }).onError((error, stackTrace) => Get.snackbar('Error',
-                          'Error al actualizar la ubicacion en la base de datos'));
-                      await Get.snackbar('Ubicación actualizada', '');
-                    }
-                  : null,
+              onUpdate: onUpdate,
               lat: locationController.location.value != null
                   ? locationController.location.value!.latitude.toPrecision(5)
                   : 0,
@@ -128,14 +117,14 @@ class _State extends State<GpsScreen> {
             double long = locationController.location.value != null
                 ? locationController.location.value!.longitude
                 : 0;
-
+            print('Latitud: $lat Longitud: $long');
             double distancia = locationController.distancia(
                     lat,
                     long,
                     listaUbicaciones.latitud.toDouble(),
                     listaUbicaciones.longitud.toDouble()) /
                 1000;
-
+            print('Distancia en KM: $distancia');
             return listaUbicaciones.uid != controluser.uid
                 ? LocationCard(
                     name: listaUbicaciones.name,
@@ -144,10 +133,28 @@ class _State extends State<GpsScreen> {
                     long: listaUbicaciones.longitud.toDouble(),
                     distance: distancia,
                   )
-                : const Text("");
+                : Row();
           }).toList(),
         );
       }
+    }
+  }
+
+  onUpdate() async {
+    final position = await manager.getCurrentLocation();
+    locationController.location.value = position;
+
+    if (locationController.location.value != null) {
+      final position = locationController.location.value;
+      final url =
+          "https://www.google.es/maps?q=${position?.latitude.toPrecision(5)},${position?.longitude.toPrecision(5)}";
+
+      _usuarios.doc(controluser.uid).update(
+          {'latitud': position?.latitude, 'longitud': position?.longitude});
+
+      return Get.snackbar('Ubicación actualizada', '');
+    } else {
+      return null;
     }
   }
 }
