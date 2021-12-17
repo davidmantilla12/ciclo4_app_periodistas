@@ -8,7 +8,7 @@ void main() async {
       () {
     test('Cheking title atribute to be the correct type', () {
       // arrange
-      final postCtrl = PublicationCtrl();
+      final postCtrl = PublicationCtrl('','', '', '',);
       // act
       final title = postCtrl.title;
       // assert
@@ -16,7 +16,7 @@ void main() async {
     });
     test('Cheking content atribute to be the correct type', () {
       // arrange
-      final postCtrl = PublicationCtrl();
+      final postCtrl = PublicationCtrl('','', '', '',);
       // act
       final title = postCtrl.content;
       // assert
@@ -24,7 +24,7 @@ void main() async {
     });
     test('Cheking category atribute to be the correct type', () {
       // arrange
-      final postCtrl = PublicationCtrl();
+      final postCtrl = PublicationCtrl('','', '', '',);
       // act
       final title = postCtrl.category;
       // assert
@@ -32,7 +32,7 @@ void main() async {
     });
     test('Cheking sub-category atribute to be the correct type', () {
       // arrange
-      final postCtrl = PublicationCtrl();
+      final postCtrl = PublicationCtrl('','', '', '',);
       // act
       final title = postCtrl.subCategory;
       // assert
@@ -44,7 +44,7 @@ void main() async {
       'given the value it should return false when field is empty, true otherwise',
       () {
     // arrange
-    final postCtrl = PublicationCtrl();
+    final postCtrl = PublicationCtrl('','', '', '',);
     // act
     final isEmpty = postCtrl.isPostEmpty();
     // assert

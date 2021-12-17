@@ -40,7 +40,7 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: "registro satisfactorio" + name.toString(),
-          duration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 2),
         ),
       );
 
@@ -50,7 +50,7 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: e.code,
-          duration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 2),
         ),
       );
       if (e.code == 'weak-password') {
@@ -62,7 +62,7 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: e.toString(),
-          duration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -80,7 +80,7 @@ class Controllerauth extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           message: "Bienvenido " + _name.value,
-          duration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 2),
         ),
       );
       return Future.value(true);

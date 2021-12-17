@@ -27,34 +27,3 @@ class PublicationCtrl extends GetxController {
   }
 }
 
-class FirebaseConnection {
-  getUser() async {
-    CollectionReference publicationCol =
-        FirebaseFirestore.instance.collection('notice_publication');
-
-    // publicationCol.doc().set({
-    //   'publisher': 'Camilo',
-    //   'date': DateTime.now(),
-    //   'title': 'A title',
-    //   'abstract': 'the abstract',
-    //   'category': 'the category',
-    //   'sub_category': 'the sub_category',
-    // });
-
-    QuerySnapshot notices = await publicationCol.get();
-    var hola = publicationCol.snapshots();
-
-    if (notices.docs.length != 0) {
-      for (var item in notices.docs) {
-        var name = item.data();
-        print(name);
-        print(item.data());
-      }
-      hola.forEach((element) {
-        print(element.docs);
-      });
-    } else {
-      print('there is not values in database');
-    }
-  }
-}

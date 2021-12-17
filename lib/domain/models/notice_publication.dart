@@ -38,7 +38,7 @@ class Notice {
 
   Notice.from(DocumentSnapshot snapshot)
       : publisher = snapshot['publisher'],
-        date = snapshot['date'].toString(),
+        date = snapshot['date'],
         title = snapshot['title'],
         content = snapshot['content'],
         category = snapshot['category'],
