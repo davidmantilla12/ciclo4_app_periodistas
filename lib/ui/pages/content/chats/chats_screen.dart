@@ -43,7 +43,7 @@ class _State extends State<ChatsScreen> {
       bottomSheet: Row(
         children: [
           SizedBox(
-            width: 400.0,
+            width: 310.0,
             child: TextFormField(
               minLines: 1,
               maxLines: 5,
