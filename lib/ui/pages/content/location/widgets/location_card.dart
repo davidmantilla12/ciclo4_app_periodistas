@@ -55,8 +55,7 @@ class LocationCard extends StatelessWidget {
                 color: primaryColor,
               ),
               onPressed: () {
-                onUpdate;
-                
+                onUpdate!();
               },
             )
           : null,
