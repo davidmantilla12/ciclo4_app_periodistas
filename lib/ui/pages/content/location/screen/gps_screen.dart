@@ -46,6 +46,7 @@ class _State extends State<GpsScreen> {
     permissionsController = Get.find();
     locationController = Get.find();
     manager = LocationManager();
+    onUpdate();
   }
 
   @override
@@ -116,14 +117,14 @@ class _State extends State<GpsScreen> {
             double long = locationController.location.value != null
                 ? locationController.location.value!.longitude
                 : 0;
-
+            print('Latitud: $lat Longitud: $long');
             double distancia = locationController.distancia(
                     lat,
                     long,
                     listaUbicaciones.latitud.toDouble(),
                     listaUbicaciones.longitud.toDouble()) /
                 1000;
-
+            print('Distancia en KM: $distancia');
             return listaUbicaciones.uid != controluser.uid
                 ? LocationCard(
                     name: listaUbicaciones.name,
@@ -132,7 +133,7 @@ class _State extends State<GpsScreen> {
                     long: listaUbicaciones.longitud.toDouble(),
                     distance: distancia,
                   )
-                : const Text("");
+                : Row();
           }).toList(),
         );
       }
